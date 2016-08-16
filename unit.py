@@ -3,8 +3,6 @@ import pygame
 
 class Unit:
     def __init__(self, x, y, width, height):
-        self.x = x
-        self.y = y
         self.width = width
         self.height = height;
         self.rectangle = pygame.Rect(x, y, width, height)
@@ -23,3 +21,9 @@ class Unit:
 
     def get_rectangle(self):
         return self.rectangle
+
+    def get_x(self):
+        return self.rectangle.x
+
+    def get_y(self):
+        return self.rectangle.y
