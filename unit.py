@@ -4,7 +4,7 @@ import math
 
 class Unit:
     def diagonal_movement(self, move_speed):
-        move_speed = math.sqrt((move_speed**2)/2)
+        move_speed = math.sqrt((move_speed ** 2) / 2)
         return move_speed
 
     def __init__(self, x, y, width, height):
@@ -48,3 +48,9 @@ class Unit:
 
     def get_y(self):
         return self.rectangle.y
+
+    def get_width(self):
+        return self.width
+
+    def get_height(self):
+        return self.height

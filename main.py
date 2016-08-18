@@ -9,6 +9,7 @@ done = False
 hero = Hero(30, 30, 60, 60)
 
 move_speed_hero = 5
+
 clock = pygame.time.Clock()
 
 while not done:
@@ -18,6 +19,12 @@ while not done:
     pressed = pygame.key.get_pressed()
     if pressed[pygame.K_UP]:
         hero.shoot_up()
+    if pressed[pygame.K_DOWN]:
+        hero.shoot_down()
+    if pressed[pygame.K_LEFT]:
+        hero.shoot_left()
+    if pressed[pygame.K_RIGHT]:
+        hero.shoot_right()
     if pressed[pygame.K_w] and pressed[pygame.K_a]:
         hero.move_up_left(move_speed_hero)
     elif pressed[pygame.K_w] and pressed[pygame.K_d]:
@@ -37,8 +44,9 @@ while not done:
     screen.fill((0, 0, 0))
     pygame.draw.rect(screen, (0, 128, 255), hero.get_rectangle())
     for bullet in hero.all_bullets:
-        bullet.y += 1
-        pygame.draw.rect(screen, (0, 128, 255), bullet)
+        bullet.move_in_direction()
+        print(bullet.get_direction())
+        pygame.draw.rect(screen, (0, 128, 255), bullet.get_rectangle())
     pygame.display.flip()
 
     clock.tick(60)
