@@ -6,8 +6,7 @@ class Bullet(unit.Unit):
     direction_down = "DOWN"
     direction_left = "LEFT"
     direction_right = "RIGHT"
-    move_speed_bullet = 5
-
+    move_speed_bullet = 10
 
     def __init__(self, x, y, width, height, direction):
         super(Bullet, self).__init__(x, y, width, height)
