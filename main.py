@@ -2,10 +2,15 @@ from hero import *
 import pygame
 
 pygame.init()
-screen = pygame.display.set_mode((800, 600))
+
+screen_height = 600
+screen_width = 800
+
+screen = pygame.display.set_mode((screen_width, screen_height))
+
 done = False
 
-hero = Hero(30, 30, 60, 60)
+hero = Hero(30, 30)
 last_shot = 0
 
 shot_interval_ms = 300
@@ -32,7 +37,6 @@ while not done:
     # Shooting
     if not allow_shot and (pygame.time.get_ticks() - last_shot) > shot_interval_ms:
         allow_shot = True
-        print(pygame.time.get_ticks() - last_shot)
 
     if allow_shot:
         if pressed[pygame.K_UP]:
@@ -48,21 +52,50 @@ while not done:
             last_shot = pygame.time.get_ticks()
 
     # Movement
+    print(hero.get_y())
     if pressed[pygame.K_w] and pressed[pygame.K_a]:
-        hero.move_up_left()
+        if hero.get_y() < 0 and hero.get_x() < 0:
+            continue
+        elif hero.get_y() < 0:
+            hero.move_left()
+        elif hero.get_x() < 0:
+            hero.move_up()
+        else:
+            hero.move_up_left()
     elif pressed[pygame.K_w] and pressed[pygame.K_d]:
-        hero.move_up_right()
+        if hero.get_y() < 0 and hero.get_x() + hero.width > screen_width:
+            continue 
+        elif hero.get_y() < 0:
+            hero.move_right()
+        elif hero.get_x() + hero.width > screen_width:
+            hero.move_up()
+        else:
+            hero.move_up_right()
     elif pressed[pygame.K_s] and pressed[pygame.K_a]:
-        hero.move_down_left()
+        if hero.get_x() < 0 and  hero.get_y() + hero.height > screen_height:
+            continue
+        elif hero.get_y() + hero.height > screen_height:
+            hero.move_left()
+        elif hero.get_x() < 0:
+            hero.move_down()
+        else:
+            hero.move_down_left()
     elif pressed[pygame.K_s] and pressed[pygame.K_d]:
-        hero.move_down_right()
-    elif pressed[pygame.K_w]:
+        if hero.get_x() + hero.width > screen_width and  hero.get_y() + hero.height > screen_height:
+            continue
+        elif hero.get_y() + hero.height > screen_height:
+            hero.move_right()
+        elif hero.get_x() + hero.width > screen_width:
+            hero.move_down()
+        else:
+            hero.move_down_right()
+    elif pressed[pygame.K_w] and hero.get_y() > 0:
         hero.move_up()
-    elif pressed[pygame.K_s]:
+    elif pressed[pygame.K_s] and hero.get_y() + hero.height < screen_height:
         hero.move_down()
-    elif pressed[pygame.K_a]:
+    elif pressed[pygame.K_a] and hero.get_x() > 0:
         hero.move_left()
-    elif pressed[pygame.K_d]:
+    elif pressed[pygame.K_d] and hero.get_x() + hero.width < screen_width:
         hero.move_right()
 
     screen.fill((0, 0, 0))

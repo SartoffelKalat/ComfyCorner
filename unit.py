@@ -14,7 +14,6 @@ class Unit:
 
     def diagonal_movement(self):
         diagonal_move_speed = math.sqrt((self.move_speed ** 2) / 2)
-        print(diagonal_move_speed)
         return diagonal_move_speed
 
     def move_left(self):
