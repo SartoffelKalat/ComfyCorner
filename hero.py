@@ -5,6 +5,8 @@ from bullet import Bullet
 class Hero(unit.Unit):
     all_bullets = []
 
+    def __init__(self, x, y, width, height):
+        super(Hero, self).__init__(x, y, width, height, 500)
 
     def __middle_x_hero(self, bullet_width):
         return self.get_x() + (self.get_width() / 2) - (bullet_width / 2)
